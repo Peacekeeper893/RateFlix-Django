@@ -1,0 +1,44 @@
+{% load static %} {% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="icon" href="{% static "images/fav.png" %}">
+
+    {% tailwind_css %}
+  </head>
+  <body >
+    <nav class=" bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 flex justify-between bg-fixed pb-2">
+      <a href = "{% url 'home' %}"> <img src = "{% static "images/logo-2.png" %}" class="max-h-14 hover:max-h-16 mt-1.5" /></a>
+
+      <div class="flex mx-1">
+        <a href = "{% url 'movies-page' %}"> <p class = "px-3 mt-5 text-white hover:text-cyan-300">All Movies</p></a>
+        <a href = "{% url 'tv-page' %}"><p class = "px-3 mt-5 text-white hover:text-cyan-300">All Tv Shows</p></a>
+      </div>
+
+    </nav>
+
+    {% block content %} {% endblock %}
+
+    <footer class="bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 flex justify-around p-3 px-3 ">
+        <div class="w-1/6">
+            <img src= "{% static "images/logo1.jpeg" %}" class="text-white" / >
+        </div> 
+
+        <div class="mx-auto my-auto text-white w-3/4 px-0 py-2">
+            <p>
+                I review movies...
+                &#9774 &#9996
+            </p>
+        </div> 
+
+    </footer>
+  </body>
+</html>

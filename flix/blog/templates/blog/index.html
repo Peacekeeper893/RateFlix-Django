@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+RateFlix
+{% endblock %}
+
+
+{% block content %}
+
+<div class ="h-auto  flex flex-col ">
+
+
+    <section class="bg-blend-lighten h-80 bg-[url('hero-pn.png')] bg-no-repeat w-full ">
+    <div class="flex justify-center text-white text-5xl">
+        <p class="font-poppins pt-2">RATEFLIX</p>
+
+
+        
+    </div>
+
+    <div class="flex justify-center text-white mt-14 text-center">
+        <p>Sign Up for our NewsLetter to get all the latest news, content reviews and more!</p>
+    </div>
+
+    <form class="flex justify-center py-5">
+        <input type="email" name="email" id="email" placeholder="Enter your email" , class="rounded-lg w-1/2 text-center ml-6 focus:bg-purple-200 focus:w-2/3">
+    </form>
+
+</section>
+
+<section class="mt-8">
+
+    <div class="text-black text-3xl font-semibold mb-2 mt-0 bg-gradient-to-r from-blue-400 to-emerald-400 w-fit mx-2 p-2 rounded-xl ">Featured Tv Shows</div>
+
+    <div class="flex justify-center h-auto">
+
+        {% for tv in latest_tv %}
+
+        <a class="bg-slate-100 w-1/4 mx-4 hover:bg-slate-400 flex flex-col p-4 rounded-lg h-auto cursor-pointer flex-shrink" href="tv/{{tv.slug}}">
+            <img src = "{% static "blog/images/"|add:tv.slug%}.jpeg " class="flex-1 flex-shrink-0 mb-4"/>
+            <h1>{{tv.name}}</h1>
+            <p>{{tv.year}}</p>
+            <p class="whitespace-nowrap overflow-hidden">{{tv.cast}}</p>
+
+        </a>
+
+        {% endfor %}
+
+
+
+
+    </div>
+
+    <a class="float-right p-2 mx-4 underline hover:cursor-pointer hover:text-blue-600" href="{% url 'tv-page' %}">View More</a>
+</section>
+
+<section class="mt-8">
+    <div class="text-black text-3xl font-semibold mb-2 mt-0 bg-gradient-to-r from-blue-400 to-emerald-400 w-fit mx-2 p-2 rounded-xl">Featured Movies</div>
+    <div class="flex justify-evenly h-auto">
+
+
+        {% for movie in latest_movies %}
+
+        <a class="bg-slate-100 w-1/4 mx-4 hover:bg-slate-400 flex flex-col p-4 rounded-lg h-auto cursor-pointer" href="movies/{{movie.slug}}">
+        
+            <img src = "{{movie.image.url}}" class="flex-1 mb-4"/>
+            <h1>{{movie.name}}</h1>
+            <p>{{movie.year}}</p>
+            <p class="whitespace-nowrap overflow-hidden">{{movie.cast}}</p>
+        
+    </a>
+    
+
+        {% endfor %}
+    </div>
+
+    <a class="float-right p-2 mx-4 underline hover:cursor-pointer hover:text-blue-600" href="{% url 'movies-page' %}">View More</a>
+</section>
+
+</div>
+
+
+{% endblock %}

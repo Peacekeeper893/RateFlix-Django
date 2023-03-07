@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+RateFlix | {{content.name}}
+{% endblock %}
+
+{% block content %}
+
+<div class="min-h-screen flex flex-col bg-gradient-to-r from-gray-900 to-gray-600  text-white">
+
+<div class="flex justify-start m-4 flex-row ">
+    <div class=" p-3 flex ">
+        <div class=" flex flex-col">
+
+            <div class="text-5xl font-serif font-bold py-1 w-2/3">{{content.name}}</div>
+            <div class="text-xl font-sans font-bold py-1 w-2/3">{{content.year}}</div>
+            <div class="font-serif font-bold pb-3 w-2/3">{{content.cast}}</div>
+            <div class="font-serif font-bold py-3 w-2/3">{{content.synopsis}}</div>
+
+        </div>
+    </div>
+
+    <div class="h-72 flex w-1/3  justify-center">
+        <img src="{{content.image.url}}" alt="cover image" class="h-full ">
+    </div>
+
+    
+</div>
+<br>
+<hr>
+
+<div class="m-4 p-3 text-3xl font-mono text-center font-semibold underline underline-offset-2 "> The Verdict </div>
+
+<div class="py-4  text-center m-8 text-5xl font-semibold  text-white">{{content.heading}}</div>
+<div class="py-4 px-8 text-justify whitespace-pre-wrap m-8 bg-slate-500 rounded-3xl">
+{{content.review}}
+</div>
+
+
+</div>
+
+{% endblock %}
