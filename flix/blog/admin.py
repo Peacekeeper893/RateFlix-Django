@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Movie , TV
+from .models import Movie , TV,TVComment,MovieComment
 
 class MovieAdmin(admin.ModelAdmin):
     list_filter = ("year", "date",)
@@ -17,3 +17,5 @@ class TVAdmin(admin.ModelAdmin):
 
 admin.site.register(Movie, MovieAdmin)
 admin.site.register(TV, TVAdmin)
+admin.site.register(TVComment)
+admin.site.register(MovieComment)

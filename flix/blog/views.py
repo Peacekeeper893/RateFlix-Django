@@ -50,11 +50,14 @@ def moviePost(request , slug):
             return HttpResponseRedirect( reverse("movies-details-post" , args=[slug]))
 
     movieForm = MovieCommentForm()
+
+
     context = {
         "isMovie" : True,
         "content" : movie,
         "form" : movieForm,
         "comments": movie.comments.all().order_by("-id"),
+        "isComment": movie.comments.all().count(),
     }
     return render(request , "blog/single_post.html" , context=context)
 
@@ -70,7 +73,8 @@ def tvPost(request , slug):
             comment.save()
             return HttpResponseRedirect(reverse("tv-details-post" ,args=[slug]))
 
-
+    
+        
 
     tvForm = TVCommentForm()
     context = {
@@ -78,6 +82,7 @@ def tvPost(request , slug):
         "content" : tv,
         "form" : tvForm,
         "comments": tv.comments.all().order_by("-id"),
+        "isComment": tv.comments.all().count(),
     }
     return render(request , "blog/single_post.html" , context=context)
 
