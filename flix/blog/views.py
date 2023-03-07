@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import Movie , TV
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .models import Movie , TV , MovieComment , TVComment
+
+from .forms import MovieCommentForm,TVCommentForm
 # Create your views here.
 
 
@@ -37,16 +40,47 @@ def tv(request):
 def moviePost(request , slug):
 
     movie = Movie.objects.get(slug=slug)
+
+    if request.method == "POST":
+        comment_form = MovieCommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.movie = movie
+            comment.save()
+            return HttpResponseRedirect( reverse("movies-details-post" , args=[slug]))
+
+    movieForm = MovieCommentForm()
     context = {
-        "content" : movie
+        "isMovie" : True,
+        "content" : movie,
+        "form" : movieForm,
+        "comments": movie.comments.all().order_by("-id"),
     }
     return render(request , "blog/single_post.html" , context=context)
 
 def tvPost(request , slug):
+
     tv = TV.objects.get(slug=slug)
+
+    if request.method == "POST":
+        comment_form = TVCommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.tv = tv
+            comment.save()
+            return HttpResponseRedirect(reverse("tv-details-post" ,args=[slug]))
+
+
+
+    tvForm = TVCommentForm()
     context = {
-        "content" : tv
+        "isMovie" : False,
+        "content" : tv,
+        "form" : tvForm,
+        "comments": tv.comments.all().order_by("-id"),
     }
     return render(request , "blog/single_post.html" , context=context)
+
+
 
 

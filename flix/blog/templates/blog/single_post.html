@@ -32,9 +32,56 @@ RateFlix | {{content.name}}
 
 <div class="m-4 p-3 text-3xl font-mono text-center font-semibold underline underline-offset-2 "> The Verdict </div>
 
-<div class="py-4  text-center m-8 text-5xl font-semibold  text-white">{{content.heading}}</div>
+<div class="py-4  text-center m-8 text-5xl font-semibold  text-white">
+    {{content.heading}}
+</div>
+
 <div class="py-4 px-8 text-justify whitespace-pre-wrap m-8 bg-slate-500 rounded-3xl">
-{{content.review}}
+    {{content.review}}
+</div>
+
+<ul class="text-white font-poppins  bg-black flex-col m-8 rounded-3xl p-4 px-8 ">
+
+    
+    {% for comment in comments %}
+
+    <li class="m-2">
+    <h3 class="capitalize text-lg font-semibold mb-2">{{comment.user_name}}</h3>
+    <h3 class="font-poppins text-zinc-400">{{comment.text}}</h3>
+    </li>
+
+
+    <hr class="last-of-type:hidden">
+
+    {% endfor %}
+</ul>
+
+<div class="py-4 px-8 m-8 bg-slate-800 rounded-3xl">
+    
+    <div class="text-white font-poppins text-center font-semibold">What do you think ? Comment Below!!</div>
+    <form action=" 
+    {% if isMovie %}
+        {% url 'movies-details-post' content.slug%}
+    {% else %} 
+        {% url 'tv-details-post' content.slug%} 
+    {% endif %}" , method = "POST">
+
+        {% csrf_token %}
+    {% for form_field in form %}
+        
+        <div class="font-poppins rounded-lg ">
+            <div>{{form_field.label_tag}}</div>
+            <div class="text-black form-input bg-slate-800 border-none  w-max h-auto"> {{form_field}} </div>
+            <div>{{form_field.errors}}</div>
+        </div>
+    {% endfor %}
+
+    <button class="bg-red-600 p-4 mt-3 ml-3 rounded-lg font-poppins">Save Comment</button>
+
+    </form>
+
+</div>
+
 </div>
 
 
