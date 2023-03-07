@@ -18,6 +18,15 @@ RateFlix | {{content.name}}
             <div class="font-serif font-bold pb-3 w-2/3">{{content.cast}}</div>
             <div class="font-serif font-bold py-3 w-2/3">{{content.synopsis}}</div>
 
+            <form action="{% url "watchlist" %}" method="POST">
+                {% csrf_token %}
+
+                <input type="hidden" value="{{content.slug}}" name = "content_slug">
+                <button class="bg-inherit mt-2 border p-2 rounded-lg font-poppins hover:bg-gradient-to-bl from-slate-900 via-purple-900 to-slate-900">
+                    {% if not saved %} ADD TO WATCHLIST {% else %} Remove from Watchlist {% endif %}
+                </button>
+            </form>
+
         </div>
     </div>
 

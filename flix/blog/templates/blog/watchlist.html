@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+RateFlix | Watchlist
+{% endblock %}
+
+
+{% block content %}
+
+<div class="min-h-screen flex flex-col">
+
+    {% if not hasitems %}
+
+    <p> NO POSTS</p>
+
+
+    {% else %}
+    
+        {% for item in movies %}
+
+        <a class="bg-slate-100 w-screen ml-0 hover:bg-slate-400  p-4 rounded-lg my-4 flex justify-between" href = "{% url "movies-details-post" item.slug %}">
+            <div class="flex">
+                <img src ="{% static "blog/images/"|add:item.slug%}.jpeg " class="h-44"/>
+                <div class="px-5 mx-10" >
+                    <p class="text-3xl font-serif font-semibold flex" >{{item.name}}</p>
+                    <p>{{item.year}}</p>
+    
+                    <p class="mt-4"> {{item.synopsis}}</p>
+                </div>
+            </div>
+    
+            <div class="flex flex-col">
+    
+                <div class="flex  mr-12 mb-2 p-4 bg-cyan-400 rounded-xl hover:bg-cyan-700 min-w-fit whitespace-nowrap">
+                    <p class="pt-2 text-white font-serif">  WATCH NOW </p>
+                </div>
+    
+            </div>
+        </a>
+
+        {% endfor %} 
+
+        <hr>
+        <hr>
+
+
+        {% for tv in tvs %}
+
+        <a class="bg-slate-100 w-screen ml-0 hover:bg-slate-400  p-4 rounded-lg my-4 flex justify-between" href = "{% url "tv-details-post" tv.slug %}">
+            <div class="flex justify-evenly">
+                <div><img src ="{% static "blog/images/"|add:tv.slug %}.jpeg " class="h-44 w-max"/></div>
+                <div class="px-5 mx-10" >
+                    <p class="text-3xl font-serif font-semibold flex" >{{tv.name}}</p>
+                    <p>{{tv.year}}</p>
+    
+                    <p class="mt-4"> {{tv.synopsis}}</p>
+                </div>
+            </div>
+    
+            <div class="flex flex-col">
+    
+                <div class="flex  mr-12 mb-2 p-4 bg-cyan-400 rounded-xl hover:bg-cyan-700 min-w-fit whitespace-nowrap">
+                    <p class="pt-2 text-white font-serif">  WATCH NOW </p>
+                </div>
+    
+            </div>
+        </a>
+
+        {% endfor %} 
+
+    {%endif%}
+
+
+    
+
+
+</div>
+
+{% endblock %}

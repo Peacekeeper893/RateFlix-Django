@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .models import Movie , TV , MovieComment , TVComment
+from django.views.generic import View
 
 from .forms import MovieCommentForm,TVCommentForm
 # Create your views here.
@@ -51,6 +52,12 @@ def moviePost(request , slug):
 
     movieForm = MovieCommentForm()
 
+    stored_post = request.session.get("stored_posts")
+
+    is_saved = False
+
+    if stored_post is not None:
+        is_saved = movie.slug in stored_post
 
     context = {
         "isMovie" : True,
@@ -58,6 +65,7 @@ def moviePost(request , slug):
         "form" : movieForm,
         "comments": movie.comments.all().order_by("-id"),
         "isComment": movie.comments.all().count(),
+        "saved":is_saved,
     }
     return render(request , "blog/single_post.html" , context=context)
 
@@ -74,7 +82,13 @@ def tvPost(request , slug):
             return HttpResponseRedirect(reverse("tv-details-post" ,args=[slug]))
 
     
-        
+    stored_post = request.session.get("stored_posts")
+
+
+    if stored_post is not None:
+        is_saved = tv.slug in stored_post 
+    else:
+        is_saved = False 
 
     tvForm = TVCommentForm()
     context = {
@@ -83,9 +97,57 @@ def tvPost(request , slug):
         "form" : tvForm,
         "comments": tv.comments.all().order_by("-id"),
         "isComment": tv.comments.all().count(),
+        "saved":is_saved,
     }
     return render(request , "blog/single_post.html" , context=context)
 
 
+
+class WatchlistView(View):
+
+    def get(self,request):
+
+        # request.session.clear()
+        stored_posts = request.session.get("stored_posts")
+
+        if stored_posts is None or len(stored_posts)==0:
+            context = {
+                "items" : [],
+                "hasitems" : False,
+            }
+        else:
+            movies = Movie.objects.filter(slug__in = stored_posts)
+            tvs = TV.objects.filter(slug__in = stored_posts)
+
+            # items = movies + tvs
+
+            context = {
+                "movies" : movies,
+                "tvs" : tvs,
+                "hasitems" : True,
+            }
+
+        return render(request , "blog/watchlist.html" , context=context)
+
+
+
+
+    def post(self,request):
+
+        stored_posts = request.session.get("stored_posts")
+
+        if stored_posts == None:
+            stored_posts = []
+
+        content_id = (request.POST['content_slug'])
+        
+        if content_id not in stored_posts: 
+            stored_posts.append(content_id)
+        else:
+            stored_posts.remove(content_id)
+
+        request.session["stored_posts"] = stored_posts
+        
+        return HttpResponseRedirect("/watchlist/")
 
 
