@@ -10,59 +10,37 @@ RateFlix
 
 <div class ="h-auto  flex flex-col ">
 
-
-    <section class="bg-blend-lighten h-80 bg-[url('hero-pn.png')] bg-no-repeat w-full ">
-    <div class="flex justify-center text-white text-5xl">
-        <p class="font-comic pt-2">RATEFLIX</p>
+    
 
 
-        
+<section class=" bg-[url('hero-pn.png')] bg-no-repeat w-full bg-center bg-cover min-h-[82vh] flex flex-col -mt-20 ">
+
+<div class = " mx-auto my-auto ">
+    <div class="flex justify-center text-cyan-400 dark:text-fuchsia-800">
+        <p class="font-comic pt-2 text-center text-[6.5rem] mb-8 ">RATEFLIX</p>
+  
     </div>
 
-    <div class="flex justify-center text-white mt-14 text-center">
+    <div class="flex justify-center text-white my-8 text-center text-2xl">
         <p>Sign Up for our NewsLetter to get all the latest news, content reviews and more!</p>
     </div>
 
     <form class="flex justify-center py-5">
-        <input type="email" name="email" id="email" placeholder="Enter your email" , class="rounded-lg w-1/2 text-center ml-6 focus:bg-purple-200 focus:w-2/3">
+        <input type="email" name="email" id="email" placeholder="Enter your email" , class="rounded-lg w-4/5 text-center  focus:bg-purple-200 focus:w-full dark:bg-slate-900 dark:placeholder:text-gray-400 dark:text-white">
     </form>
 
+</div>
+
 </section>
 
-<section class="mt-8">
-
-    <div class="text-black text-3xl font-semibold mb-2 mt-0 bg-gradient-to-r from-blue-400 to-emerald-400 w-fit mx-2 p-2 rounded-xl ">Featured Tv Shows</div>
-
-    <div class="flex justify-center h-auto">
-
-        {% for tv in latest_tv %}
-
-        <a class="bg-slate-100 w-1/4 mx-4 hover:bg-slate-400 flex flex-col p-4 rounded-lg h-auto cursor-pointer flex-shrink" href="tv/{{tv.slug}}">
-            <img src = "{% static "blog/images/"|add:tv.slug%}.jpeg " class="flex-1 flex-shrink-0 mb-4"/>
-            <h1>{{tv.name}}</h1>
-            <p>{{tv.year}}</p>
-            <p class="whitespace-nowrap overflow-hidden">{{tv.cast}}</p>
-
-        </a>
-
-        {% endfor %}
-
-
-
-
-    </div>
-
-    <a class="float-right p-2 mx-4 underline hover:cursor-pointer hover:text-blue-600" href="{% url 'tv-page' %}">View More</a>
-</section>
-
-<section class="mt-8">
-    <div class="text-black text-3xl font-semibold mb-2 mt-0 bg-gradient-to-r from-blue-400 to-emerald-400 w-fit mx-2 p-2 rounded-xl">Featured Movies</div>
-    <div class="flex justify-evenly h-auto">
+<section class="mt-8 font-semibold ">
+    <div class="text-black text-4xl font-semibold mb-4 mt-0 bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900  mx-2 p-2 rounded-xl w-fit dark:bg-gradient-to-r dark:from-fuchsia-600 dark:to-pink-600 text-transparent bg-clip-text">Featured Movies</div>
+    <div class="flex justify-start h-auto w-full overflow-x-scroll overflow-y-hidden gap-2 scroll ">
 
 
         {% for movie in latest_movies %}
 
-        <a class="bg-slate-100 w-1/4 mx-4 hover:bg-slate-400 flex flex-col p-4 rounded-lg h-auto cursor-pointer" href="movies/{{movie.slug}}">
+        <a class=" mx-4 w-[24%] hover:bg-slate-400 flex flex-col p-4 rounded-lg h-auto cursor-pointer hover:scale-[1.03] shrink-0 overflow-auto mb-6  dark:hover:bg-slate-700  dark:text-neutral-200" href="movies/{{movie.slug}}">
         
             <img src = "{{movie.image.url}}" class="flex-1 mb-4"/>
             <h1>{{movie.name}}</h1>
@@ -78,7 +56,102 @@ RateFlix
     <a class="float-right p-2 mx-4 underline hover:cursor-pointer hover:text-blue-600" href="{% url 'movies-page' %}">View More</a>
 </section>
 
+<section class="mt-8 font-semibold">
+
+    <div class="text-black text-4xl font-semibold mt-0  w-fit mx-2 p-2 rounded-xl mb-4 bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 dark:bg-gradient-to-r dark:from-fuchsia-600 dark:to-pink-600 text-transparent bg-clip-text">Upcoming Movies</div>
+
+    <div class="flex flex-row-reverse justify-start h-auto overflow-x-scroll overflow-y-hidden w-full gap-2 scroll">
+
+        {% for item in upcoming_list %}
+
+        <div class=" w-[24%] mx-4 flex flex-col  m-1 rounded-lg  h-auto   shrink-0 overflow-auto   dark:text-neutral-200 mb-6" >
+            <img src = "{{item.img}}" class="flex-1  mb-4 "/>
+            <h1>{{item.title}}</h1>
+            <p>Releases- {{item.date}}</p>
+
+
+        </div>
+
+        {% endfor %}
+
+        
+
+
+
+
+    </div>
+
+    <!-- <a class="float-right p-2 mx-4 underline hover:cursor-pointer hover:text-blue-600" href="{% url 'tv-page' %}">View More</a> -->
+</section>
+
+<section class="mt-8 font-semibold">
+
+    <div class="text-black text-4xl font-semibold mt-0  w-fit mx-2 p-2 rounded-xl mb-4 bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900 dark:bg-gradient-to-r dark:from-fuchsia-600 dark:to-pink-600 text-transparent bg-clip-text">Featured Tv Shows</div>
+
+    <div class="flex justify-start h-auto overflow-x-scroll overflow-y-hidden w-full gap-2 scroll">
+
+        {% for tv in latest_tv %}
+
+        <a class=" w-[24%] mx-4 hover:bg-slate-400 flex flex-col p-4 m-1 rounded-lg hover:rounded-2xl h-auto cursor-pointer hover:scale-[1.03] shrink-0 overflow-auto  dark:hover:bg-slate-700  dark:text-neutral-200 mb-6" href="tv/{{tv.slug}}">
+            <img src = "{{tv.image.url}}" class="flex-1  mb-4 "/>
+            <h1>{{tv.name}}</h1>
+            <p>{{tv.year}}</p>
+            <p class="whitespace-nowrap overflow-hidden">{{tv.cast}}</p>
+
+        </a>
+
+        {% endfor %}
+
+        
+
+
+
+
+    </div>
+
+    <a class="float-right p-2 mx-4 underline hover:cursor-pointer hover:text-blue-600" href="{% url 'tv-page' %}">View More</a>
+</section>
+
+
+
+<section class="mt-8 font-semibold">
+    <div class="text-black text-4xl font-semibold mb-4 mt-0 bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900  mx-2 p-2 rounded-xl w-fit dark:bg-gradient-to-r dark:from-fuchsia-600 dark:to-pink-600 text-transparent bg-clip-text">Top Rated</div>
+    <div class="flex justify-start h-auto w-full overflow-x-scroll overflow-y-hidden gap-2 scroll">
+
+
+        {% for movie in highest_movies %}
+
+        <a class=" mx-4 w-[24%] hover:bg-slate-400 flex flex-col p-4 rounded-lg h-auto cursor-pointer overflow-auto hover:scale-[1.03] shrink-0 mb-6 dark:hover:bg-slate-700  dark:text-neutral-200" href="movies/{{movie.slug}}">
+        
+            <img src = "{{movie.image.url}}" class="flex-1 mb-4"/>
+            <h1>{{movie.name}}</h1>
+            <p>{{movie.year}}</p>
+            <p class="whitespace-nowrap overflow-hidden">{{movie.cast}}</p>
+        
+        </a>
+        {% endfor %}
+
+        {% for tv in highest_tv %}
+
+        <a class=" w-[24%] mx-4 hover:bg-slate-400 flex flex-col p-4 m-1 rounded-lg h-auto cursor-pointer overflow-auto hover:scale-[1.03] shrink-0   dark:hover:bg-slate-700  dark:text-neutral-200 mb-6" href="tv/{{tv.slug}}">
+            <img src = "{{tv.image.url}}" class="flex-1 flex-shrink-0 mb-4"/>
+            <h1>{{tv.name}}</h1>
+            <p>{{tv.year}}</p>
+            <p class="whitespace-nowrap overflow-hidden">{{tv.cast}}</p>
+
+        </a>
+
+        {% endfor %}
+
+
+    </div>
+
+    <a class="float-right p-2 mx-4 underline hover:cursor-pointer hover:text-blue-600" href="{% url 'movies-page' %}">View More</a>
+</section>
+
 </div>
+
+
 
 
 {% endblock %}

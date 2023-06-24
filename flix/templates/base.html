@@ -11,24 +11,36 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{% block title %} {% endblock %}</title>
     <link rel="icon" href="{% static "images/fav.png" %}">
+    <link rel="stylesheet" href="{% static 'app.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     {% tailwind_css %}
   </head>
-  <body >
-    <nav class=" bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 flex justify-between bg-fixed pb-2">
-      <a href = "{% url 'home' %}"> <img src = "{% static "images/logo-2.png" %}" class="max-h-14 hover:max-h-16 mt-1.5" /></a>
+  <body class="dark:bg-slate-900 bg-white">
+    <nav class="bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900  flex justify-between bg-fixed items-center pb-2 ">
+      <div class = "z-20"><a href = "{% url 'home' %}"> <img src = "{% static "images/logo-2.png" %}" class="max-h-14  hover:max-h-16 mt-1.5 " /></a></div>
 
-      <div class="flex mx-1">
+      <div class="z-20 md:w-[40%] w-[30%]  ">
+        <form action="{% url 'search_result' %}" method="get" class="flex items-center w-full ">
+          <input type="text" name="q" id="" class=" mt-3 rounded-lg w-full dark:bg-slate-900 dark:placeholder:text-gray-400 bg-slate-100 flex-grow dark:text-white" placeholder="Search...">
+          <button type="submit" class="text-white mt-3 text-[24px] ml-2 hover:scale-105 "><i class="fa fa-search"></i>
+          </button>
+        </form>
+      </div>
+
+      <div class="flex mx-1 z-20">
         <a href = "{% url 'watchlist' %}"><p class = "px-3 mt-5 text-white hover:text-cyan-300">Your Watchlist</p></a>
-        <a href = "{% url 'movies-page' %}"> <p class = "px-3 mt-5 text-white hover:text-cyan-300">All Movies</p></a>
-        <a href = "{% url 'tv-page' %}"><p class = "px-3 mt-5 text-white hover:text-cyan-300">All Tv Shows</p></a>
+        <a href = "{% url 'movies-page' %}"> <p class = "px-3 mt-5 text-white hover:text-cyan-300 hidden md:block">All Movies</p></a>
+        <a href = "{% url 'tv-page' %}"><p class = "px-3 mt-5 text-white hover:text-cyan-300 hidden md:block">All Tv Shows</p></a>
+        <img src="{% static "images/sun-color-icon.svg" %}" alt="" class="sun w-[30px] h-[30px] mt-5 mr-3 cursor-pointer">
+        <img src="{% static "images/moon-final.svg" %}" alt="" class="moon w-[30px] h-[30px] mt-5 mr-3 cursor-pointer">
       </div>
 
     </nav>
 
     {% block content %} {% endblock %}
 
-    <footer class="bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 flex justify-around p-3 px-3 ">
+    <footer class="bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 flex justify-around p-3  w-full ">
         <div class="w-1/6">
             <img src= "{% static "images/logo1.jpeg" %}" class="text-white" / >
         </div> 
@@ -41,5 +53,7 @@
         </div> 
 
     </footer>
+
+    <script src="{% static "script.js" %}"></script>
   </body>
 </html>

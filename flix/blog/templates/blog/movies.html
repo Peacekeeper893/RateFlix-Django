@@ -12,9 +12,9 @@ RateFlix | All Movies
 
     {% for movie in all_movies %}
 
-    <a class="bg-slate-100 w-screen ml-0 hover:bg-slate-400  p-4 rounded-lg my-4 flex justify-between" href = "{{movie.slug}}">
+    <a class="bg-slate-100 w-screen ml-0 hover:bg-slate-400  p-4 rounded-lg my-4 flex justify-between dark:bg-slate-600 dark:hover:bg-slate-700  dark:text-neutral-200" href = "{{movie.slug}}">
         <div class="flex">
-            <img src ="{% static "blog/images/"|add:movie.slug%}.jpeg " class="h-44"/>
+            <img src ="{{movie.image.url}}" class="h-44"/>
             <div class="px-5 mx-10" >
                 <p class="text-3xl font-serif font-semibold flex" >{{movie.name}}</p>
                 <p>{{movie.year}}</p>

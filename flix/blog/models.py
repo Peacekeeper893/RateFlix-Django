@@ -2,6 +2,13 @@ from django.db import models
 
 # Create your models here.
 
+class Genre(models.Model):
+    name = models.CharField(max_length=50)
+
+
+    def __str__(self) -> str:
+        return self.name
+
 class Movie(models.Model):
     name = models.CharField(max_length=100)
     year = models.IntegerField()
@@ -14,6 +21,8 @@ class Movie(models.Model):
 
     slug = models.SlugField(unique=True,db_index=True)
     synopsis = models.TextField()
+    genre = models.ManyToManyField(Genre)
+    rating = models.FloatField(blank=True , null=True)
 
     def __str__(self) -> str:
         return self.name
@@ -30,6 +39,10 @@ class TV(models.Model):
 
     slug = models.SlugField(unique=True,db_index=True)
     synopsis = models.TextField()
+    genre = models.ManyToManyField(Genre)
+    rating = models.FloatField(blank=True , null=True)
+
+
 
     def __str__(self) -> str:
         return self.name.upper()
@@ -47,6 +60,8 @@ class TVComment(models.Model):
     season = models.IntegerField(null=True)
 
     tv = models.ForeignKey(TV, on_delete=models.CASCADE, related_name="comments",null=True)
+
+
 
 
 

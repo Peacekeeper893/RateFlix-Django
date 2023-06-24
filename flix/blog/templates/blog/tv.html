@@ -11,9 +11,9 @@ RateFlix | All TV Shows
 
     {% for tv in all_tvs %}
 
-    <a class="bg-slate-100 w-screen ml-0 hover:bg-slate-400  p-4 rounded-lg my-4 flex justify-between" href = "{{tv.slug}}">
+    <a class="bg-slate-100 w-screen ml-0 hover:bg-slate-400  p-4 rounded-lg my-4 flex justify-between dark:bg-slate-600 dark:hover:bg-slate-700  dark:text-neutral-200" href = "{{tv.slug}}">
         <div class="flex justify-evenly">
-            <div><img src ="{% static "blog/images/"|add:tv.slug %}.jpeg " class="h-44 w-max"/></div>
+            <div><img src ="{{tv.image.url}} " class="h-44 w-max"/></div>
             <div class="px-5 mx-10" >
                 <p class="text-3xl font-serif font-semibold flex" >{{tv.name}}</p>
                 <p>{{tv.year}}</p>

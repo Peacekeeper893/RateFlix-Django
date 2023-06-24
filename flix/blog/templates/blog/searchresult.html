@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-RateFlix | Watchlist
+RateFlix | Search
 {% endblock %}
 
 
@@ -10,9 +10,9 @@ RateFlix | Watchlist
 
 <div class="min-h-screen flex flex-col">
 
-    {% if not hasitems %}
+    {% if not has_content %}
 
-    <p> NO POSTS</p>
+    <p class="dark:text-white"> NO Bueno</p>
 
 
     {% else %}
@@ -76,5 +76,7 @@ RateFlix | Watchlist
 
 
 </div>
+
+
 
 {% endblock %}
