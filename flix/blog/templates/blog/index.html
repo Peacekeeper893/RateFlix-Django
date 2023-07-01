@@ -11,14 +11,12 @@ RateFlix
 <div class ="h-auto  flex flex-col ">
 
     
-
+<!-- Hero Section -->
 
 <section class=" bg-[url('hero-pn.png')] bg-no-repeat w-full bg-center bg-cover min-h-[82vh] flex flex-col -mt-20 ">
-
 <div class = " mx-auto my-auto ">
     <div class="flex justify-center text-cyan-400 dark:text-fuchsia-800">
         <p class="font-comic pt-2 text-center text-[6.5rem] mb-8 ">RATEFLIX</p>
-  
     </div>
 
     <div class="flex justify-center text-white my-8 text-center text-2xl">
@@ -30,13 +28,18 @@ RateFlix
     </form>
 
 </div>
-
 </section>
 
-<section class="mt-8 font-semibold ">
-    <div class="text-black text-4xl font-semibold mb-4 mt-0 bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900  mx-2 p-2 rounded-xl w-fit dark:bg-gradient-to-r dark:from-fuchsia-600 dark:to-pink-600 text-transparent bg-clip-text">Featured Movies</div>
-    <div class="flex justify-start h-auto w-full overflow-x-scroll overflow-y-hidden gap-2 scroll ">
 
+<!-- Featured Movies Section -->
+
+
+<section class="mt-8 font-semibold ">
+
+    <div class="text-black text-4xl font-semibold mb-4 mt-0 bg-gradient-to-r from-blue-700 via-blue-800 to-gray-900  mx-2 p-2 rounded-xl w-fit dark:bg-gradient-to-r dark:from-fuchsia-600 dark:to-pink-600 text-transparent bg-clip-text">Featured Movies
+    </div>
+
+    <div class="flex justify-start h-auto w-full overflow-x-scroll overflow-y-hidden gap-2 scroll ">
 
         {% for movie in latest_movies %}
 
@@ -46,15 +49,17 @@ RateFlix
             <h1>{{movie.name}}</h1>
             <p>{{movie.year}}</p>
             <p class="whitespace-nowrap overflow-hidden">{{movie.cast}}</p>
-        
-    </a>
-    
+        </a>
 
         {% endfor %}
+
     </div>
 
     <a class="float-right p-2 mx-4 underline hover:cursor-pointer hover:text-blue-600" href="{% url 'movies-page' %}">View More</a>
+
 </section>
+
+<!-- Upcoming Movies Section -->
 
 <section class="mt-8 font-semibold">
 
@@ -67,17 +72,10 @@ RateFlix
         <div class=" w-[24%] mx-4 flex flex-col  m-1 rounded-lg  h-auto   shrink-0 overflow-auto   dark:text-neutral-200 mb-6" >
             <img src = "{{item.img}}" class="flex-1  mb-4 "/>
             <h1>{{item.title}}</h1>
-            <p>Releases- {{item.date}}</p>
-
-
+            <p>Release Date- {{item.date}}</p>
         </div>
 
         {% endfor %}
-
-        
-
-
-
 
     </div>
 

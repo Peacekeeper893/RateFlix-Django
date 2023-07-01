@@ -19,30 +19,21 @@ def home(request):
 
     latest_movies = Movie.objects.all().order_by("-date")[:5]
     latest_tv = TV.objects.all().order_by("-date")[:5]
-
     highest_tv = (TV.objects.all().order_by("-rating"))[:3]
     highest_movies = Movie.objects.all().order_by("-rating")[:3]
 
     # Getting the upcoming movies
-
-
-
     UPCOMING_URL = '/movie/upcoming'
-
     querystring = {"api_key": API_KEY, "language": "en-US"}
-
     response = requests.request("GET", f"{BASE_URL}{UPCOMING_URL}", params=querystring)
-
     upcoming_list = []
 
 
     for movie in response.json()['results'][:6]:
-
         info = {}
         info['img'] = IMG_URL + movie["poster_path"]
         info['title'] = movie["title"]
         info['date'] = movie["release_date"]
-
         upcoming_list.append(info)
         # print(info)
 
