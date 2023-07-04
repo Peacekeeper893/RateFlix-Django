@@ -11,16 +11,16 @@ class Genre(models.Model):
 
 class Movie(models.Model):
     name = models.CharField(max_length=100)
-    year = models.IntegerField()
-    cast = models.CharField(max_length=100)
+    year = models.CharField(null = True , max_length=100)
+    cast = models.CharField(null=True , max_length=100)
     date = models.DateField(auto_now=True)
-    image = models.ImageField(null=True)
+    image = models.CharField(max_length=800 , null=True)
 
     heading = models.CharField(max_length=100, null=True)
     review = models.TextField(null=True)
 
     slug = models.SlugField(unique=True,db_index=True)
-    synopsis = models.TextField()
+    synopsis = models.TextField(blank=True , null=True)
     genre = models.ManyToManyField(Genre)
     rating = models.FloatField(blank=True , null=True)
 
@@ -29,16 +29,17 @@ class Movie(models.Model):
     
 class TV(models.Model):
     name = models.CharField(max_length=100)
-    year = models.IntegerField()
-    cast = models.CharField(max_length=100) # Change this to 35 to accomodate styling
+    year = models.CharField(null = True , max_length=100)
+    cast = models.CharField(null=True , max_length=100)
     date = models.DateField(auto_now=True)
-    image = models.ImageField(null=True)
+    image = models.CharField(max_length=800 , null=True)
 
     heading = models.CharField(max_length=100, null=True)
     review = models.TextField(null=True)
 
     slug = models.SlugField(unique=True,db_index=True)
-    synopsis = models.TextField()
+    synopsis = models.TextField(blank=True , null=True)
+
     genre = models.ManyToManyField(Genre)
     rating = models.FloatField(blank=True , null=True)
 
