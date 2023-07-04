@@ -273,6 +273,18 @@ def moviePost(request , slug):
     
 # Handle the comments
 
+    url = f"https://api.themoviedb.org/3/movie/{api_id}/reviews"
+    querystring = {"api_key":"b41e4cfe8e55ba8de405c85317f02cff","language":"en-US","page":"1"}
+    response = requests.request("GET", url, params=querystring)
+    # print(response.text)
+
+    if movie.comments.all().count() == False:
+
+        for i in response.json()['results'][:6]:
+            b = MovieComment(user_name= i["author"] , user_email =i["author"] + '@email.com' ,
+                           text = i["content"][:min(400 , len(i["content"]))] , movie = movie)
+            b.save() 
+
     if request.method == "POST":
         comment_form = MovieCommentForm(request.POST)
         if comment_form.is_valid():
@@ -337,9 +349,7 @@ def tvPost(request , slug):
         info['character'] = cast['character']
         info['img'] = IMG_URL + cast["profile_path"]
         castlist.append(info)
-        print(info)
 
-    # print(castlist)
 
 
 # Get the video
@@ -370,6 +380,19 @@ def tvPost(request , slug):
             b.save() 
 
         recommended.append(i)
+
+    url = f"https://api.themoviedb.org/3/tv/{api_id}/reviews"
+    querystring = {"api_key":"b41e4cfe8e55ba8de405c85317f02cff","language":"en-US","page":"1"}
+    response = requests.request("GET", url, params=querystring)
+    # print(response.text)
+
+    if tv.comments.all().count() == False:
+
+        for i in response.json()['results'][:6]:
+            b = TVComment(user_name= i["author"] , user_email =i["author"] + '@email.com' ,
+                           text = i["content"][:min(400 , len(i["content"]))] , tv = tv)
+            b.save() 
+
 
     if request.method == "POST":
         comment_form = TVCommentForm(request.POST)
@@ -463,17 +486,25 @@ def SearchResultView(request):
     response = requests.request("GET", url, params=querystring)
 
 
-    results = response.json()['results'][:10]
+    results = response.json()['results'][:5]
 
     for x in results:
         if x['media_type'] == 'movie':
             x['slug'] = slugify(x['title'] + x['release_date'])
-
-            if(Movie.objects.filter(slug = x['slug']).exists() == False):
-                b = Movie(name= x["title"] , slug = x['slug'] , image = IMG_URL + x["poster_path"])
-                b.save() 
-        else:
+            try:
+                if(Movie.objects.filter(slug = x['slug']).exists() == False):
+                    b = Movie(name= x["title"] , slug = x['slug'] , image = IMG_URL + x["poster_path"])
+                    b.save() 
+            except:
+                results.remove(x)
+        elif x['media_type'] == 'tv':
             x['slug'] = slugify(x['name'] + x['first_air_date'])
+            try:
+                if(TV.objects.filter(slug = x['slug']).exists() == False):
+                    b = TV(name= x["name"] , slug = x['slug'] , image = IMG_URL + x["poster_path"], year = x["first_air_date"] )
+                    b.save()
+            except:
+                results.remove(x)
 
     print(results)
 

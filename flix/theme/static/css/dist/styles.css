@@ -906,6 +906,10 @@ select {
   margin-top: 2rem;
 }
 
+.-mt-10 {
+  margin-top: -2.5rem;
+}
+
 .block {
   display: block;
 }
@@ -956,6 +960,26 @@ select {
 
 .h-16 {
   height: 4rem;
+}
+
+.h-\[540px\] {
+  height: 540px;
+}
+
+.h-\[px\] {
+  height: px;
+}
+
+.h-\[924px\] {
+  height: 924px;
+}
+
+.h-\[90\%\] {
+  height: 90%;
+}
+
+.h-\[60\%\] {
+  height: 60%;
 }
 
 .max-h-14 {
@@ -1284,6 +1308,16 @@ select {
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.object-fill {
+  -o-object-fit: fill;
+     object-fit: fill;
 }
 
 .p-1 {
