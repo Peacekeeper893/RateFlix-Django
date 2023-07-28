@@ -60,12 +60,17 @@ RateFlix | {{content.name}}
         {% endfor %}
     </div>
 
-    <a class="float-right p-2 mx-4 underline hover:cursor-pointer hover:text-blue-600" href="{% url 'movies-page' %}">View More</a>
 </section>
 
 <hr>
 
-<div class="m-4 p-3 text-3xl font-mono text-center font-semibold underline underline-offset-2 "> The Verdict </div>
+{% if content.heading != None %}
+
+<div class = "flex justify-center">
+<div class =" m-2 p-2 h-[50px] w-[90px]"> <img src = "https://i.imgur.com/OKPXcR1.png"/>  </div>
+<div class="m-2 p-2 py-3 text-3xl font-mono text-center font-semibold underline underline-offset-4 "> The Editors review </div>
+</div>
+
 
 <div class="py-4  text-center m-8 text-5xl font-semibold  dark:text-white">
     {{content.heading}}
@@ -74,11 +79,15 @@ RateFlix | {{content.name}}
 <div class="py-4 px-8 text-justify whitespace-pre-wrap m-8 bg-slate-500 rounded-3xl">
     {{content.review}}
 </div>
+
+{% endif %}
 <hr>
 
 <ul class="text-white font-poppins  bg-slate-900 flex-col m-2 rounded-xl p-4 ">
 
     {% if isComment %}
+    <div class="text-center  items-center underline text-2xl">User Reviews</div>
+
         {% for comment in comments %}
 
         <li class="m-2">
