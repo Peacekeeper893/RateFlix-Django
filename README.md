@@ -17,7 +17,7 @@ RateFlix provides a comprehensive entertainment experience, offering a diverse a
 
 ## Demo
 
-[Include a link to a live demo or screenshots of your project here.]
+Try it out here http://rateflix.pythonanywhere.com/
 
 ## Technologies Used
 
